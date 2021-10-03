@@ -142,22 +142,23 @@ var toEndCard = function() {
 
     clearInterval(timerID);
 
-    document.getElementById('submit-score-btn').addEventListener('click', () => {
+    document.getElementById('submit-score-btn').addEventListener('click', (event) => {
         toHighscores();
-        addHighscore();
+        addHighscore(event);
     });
 
 }
 
 
-var toHighscores = function () {
+var toHighscores = function() {
     endCardEl.setAttribute('style', 'display:none');
     highscoresCardEl.setAttribute('style', 'display:block');
 
     document.getElementById('play-again-btn').addEventListener('click', playAgain)
 }
 
-var addHighscore = function () {
+var addHighscore = function(event) {
+    event.preventDefault();
     // create object with player data
     var scoreEntry = {
         Name: playerNameEl.value,
@@ -165,6 +166,7 @@ var addHighscore = function () {
     }
     // add object to array
     highscoreList.push(scoreEntry);
+    document.getElementById('enter-score-container').reset();
     console.log(highscoreList)
     // add score to local storage
 
@@ -175,6 +177,8 @@ var clearHighscores = function() {
 }
 
 var playAgain = function () {
+    score = 0;
+
     highscoresCardEl.setAttribute('style', 'display:none');
     startGame();
 }
@@ -188,7 +192,11 @@ if (timer === 0) {
     clearInterval(timerID);
 }
 
-
+document.querySelector('.view-scores-link').addEventListener('click', function(event){
+    event.preventDefault();
+    highscoresCardEl.setAttribute('style', 'display:block');
+    document.getElementById('play-again-btn').addEventListener('click', playAgain)
+})
 startButtonEl.addEventListener('click', startGame);
 
 

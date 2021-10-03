@@ -87,11 +87,11 @@ header {
     display: none;
 }
 
-.enter-score-container {
+#enter-score-container {
     background-color: var(--tertiary-color);
 }
 
-.enter-score-container span {
+#enter-score-container span {
     background-color: var(--tertiary-color);
 }
 
