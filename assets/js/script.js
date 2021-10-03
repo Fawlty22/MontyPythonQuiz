@@ -1,26 +1,29 @@
 var startCardEl = document.querySelector('#start-card')
 var startButtonEl = document.querySelector('#start-btn')
 var timerEl = document.querySelector('#timer')
+let timerID;
 var question1El = document.querySelector('#question-1')
 var question2El = document.querySelector('#question-2')
 var question3El = document.querySelector('#question-3')
 var question4El = document.querySelector('#question-4')
 var endCardEl = document.querySelector('#end-card')
 var highscoresCardEl = document.querySelector('#highscores-card')
+var playerNameEl = document.querySelector('#player-name')
 var score = ''
 var timer = ''
+var highscoreList = []
 
-var startTimer = function() {
-    setInterval(timerRun, 1000)
-}
 
 var wrongAnswer = function() {
     // attach the word wrong to the next card at the bottom
+    // var attachWrong = document.createElement('p')
+    // attachWrong.textContent = "Wrong!"
+    // attachWrong.className = 'txt-wrong'
+    // .appendChild(attachWrong)
 
     // decrease timer by ten seconds
     timer = timer - 10
 }
-
 var rightAnswer = function() {
     // attach the word correct to the next card at the bottom
 
@@ -28,10 +31,17 @@ var rightAnswer = function() {
     score++
 }
 
+// Timer Functions
 var timerRun = function () {
-    timer = timer - 1
+    timer = parseInt(timer - 1)
     timerEl.textContent = 'Time Remaining: ' + timer 
 }
+
+var startTimer = function() {
+    timerID = setInterval(timerRun, 1000)
+}
+
+
 
 var startGame = function() {
     timer = 40
@@ -124,20 +134,61 @@ var toQuestion4 = function() {
         toEndCard();
         wrongAnswer();
     });
-
-    stopTimer();
-    
 }
 
 var toEndCard = function() {
     question4El.setAttribute('style', 'display:none');
     endCardEl.setAttribute('style', 'display:block');
+
+    clearInterval(timerID);
+
+    document.getElementById('submit-score-btn').addEventListener('click', () => {
+        toHighscores();
+        addHighscore();
+    });
+
 }
 
 
-if (timer == 0){
-    
+var toHighscores = function () {
+    endCardEl.setAttribute('style', 'display:none');
+    highscoresCardEl.setAttribute('style', 'display:block');
+
+    document.getElementById('play-again-btn').addEventListener('click', playAgain)
 }
+
+var addHighscore = function () {
+    // create object with player data
+    var scoreEntry = {
+        Name: playerNameEl.value,
+        Score: score,
+    }
+    // add object to array
+    highscoreList.push(scoreEntry);
+    console.log(highscoreList)
+    // add score to local storage
+
+}
+
+var clearHighscores = function() {
+    // clear local storage data
+}
+
+var playAgain = function () {
+    highscoresCardEl.setAttribute('style', 'display:none');
+    startGame();
+}
+
+
+// if timer runs out, show times up page
+if (timer === 0) {
+    // main.innerhtml = endcard    i dont understand why this isnt triggering.  leaving it for now. 
+    document.getElementById('main').innerHTML = endCardEl;
+    endCardEl.setAttribute('style', 'display:block')
+    clearInterval(timerID);
+}
+
+
 startButtonEl.addEventListener('click', startGame);
 
 

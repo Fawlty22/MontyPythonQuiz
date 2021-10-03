@@ -18,7 +18,7 @@
     </div>
 </header>
 
-<main>
+<main id="main">
     <!-- Start Card -->
     <section class="card" id="start-card">
         <h1 class="heading-text">Monty Python Quiz Challenge</h1>
@@ -69,9 +69,9 @@
         <h1 class="heading-text">Time's Up!</h1>
         <p class="question-text">Your final score is:</p>
         <div class="enter-score-container">
-            <span>Nickname:</span>
+            <span id="player-name">Nickname:</span>
             <input type="text" placeholder=" Pick something good...">
-            <button class="btn type="submit">Submit</button>
+            <button class="btn" id="submit-score-btn" type="submit">Submit</button>
         </div>
     </section>
 
@@ -79,8 +79,8 @@
     <section class="card" id="highscores-card">
         <h1 class="heading-text">Highscores</h1>
         <div class="highscore-display"></div>
-        <button class="btn">Play Again</button>
-        <button class="btn">Clear Highscores</button>
+        <button class="btn" id="play-again-btn">Play Again</button>
+        <button class="btn" id="clear-scores-btn">Clear Highscores</button>
     </section>
 
 </main>
