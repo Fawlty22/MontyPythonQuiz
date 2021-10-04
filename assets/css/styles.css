@@ -60,7 +60,7 @@ header {
     padding: 5px;
     font-size: 28px;
     margin: 10px 5px;
-    border: 2px solid var(--primary-color);
+    border: 2px solid whitesmoke;
 }
 
 #question-1 {

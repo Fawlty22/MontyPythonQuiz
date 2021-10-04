@@ -28,7 +28,7 @@ var rightAnswer = function() {
     // attach the word correct to the next card at the bottom
 
     // increase score by 1
-    score++
+    
 }
 
 // Timer Functions
@@ -165,6 +165,7 @@ var addHighscore = function(event) {
         Score: score,
     }
     // add object to array
+    console.log(scoreEntry);
     highscoreList.push(scoreEntry);
     document.getElementById('enter-score-container').reset();
     console.log(highscoreList)
