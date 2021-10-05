@@ -9,7 +9,6 @@ var question4El = document.querySelector('#question-4')
 var endCardEl = document.querySelector('#end-card')
 var highscoresCardEl = document.querySelector('#highscores-card')
 var playerNameEl = document.querySelector('#player-name')
-var score = 0
 var timer = ''
 var highscoreList = []
 
@@ -25,17 +24,23 @@ var wrongAnswer = function() {
     return timer -= 10
 }
 
-var rightAnswer = function() {
-    // attach the word correct to the next card at the bottom
-
-    // increase score by 1
-    return score += 1
-}
 
 // Timer Functions
 var timerRun = function () {
     timer = parseInt(timer - 1)
-    timerEl.textContent = 'Time Remaining: ' + timer 
+    timerEl.textContent = 'Time Remaining: ' + timer + 's'; 
+
+    // if timer runs out, show times up page
+if (timer === 0) {
+    // main.innerhtml = endcard    i dont understand why this isnt triggering.  leaving it for now. 
+    endCardEl.setAttribute('style', 'display:block')
+    question1El.setAttribute('style', 'display:none');
+    question2El.setAttribute('style', 'display:none');
+    question3El.setAttribute('style', 'display:none');
+    question4El.setAttribute('style', 'display:none');
+    highscoresCardEl.setAttribute('style', 'display:none');
+    clearInterval(timerID);
+}
 }
 
 var startTimer = function() {
@@ -45,7 +50,7 @@ var startTimer = function() {
 
 
 var startGame = function() {
-    timer = 40
+    timer = 35
     startTimer();
 
     startCardEl.setAttribute('style', 'display:none');
@@ -59,7 +64,6 @@ document.getElementById('btn-1a').addEventListener('click', () => {
 });
 document.getElementById('btn-1b').addEventListener('click', () => {
     toQuestion2();
-    rightAnswer();
 });
 document.getElementById('btn-1c').addEventListener('click', () => {
     toQuestion2();
@@ -92,7 +96,6 @@ document.getElementById('btn-2c').addEventListener('click', () => {
 });
 document.getElementById('btn-2d').addEventListener('click', () => {
     toQuestion3();
-    rightAnswer();
 });
 
 var toQuestion3 = function() {
@@ -115,7 +118,6 @@ document.getElementById('btn-3c').addEventListener('click', () => {
 });
 document.getElementById('btn-3d').addEventListener('click', () => {
     toQuestion4();
-    rightAnswer();
 });
 
 var toQuestion4 = function() {
@@ -134,7 +136,6 @@ document.getElementById('btn-4b').addEventListener('click', () => {
 });
 document.getElementById('btn-4c').addEventListener('click', () => {
     toEndCard();
-    rightAnswer();
 });
 document.getElementById('btn-4d').addEventListener('click', () => {
     toEndCard();
@@ -165,7 +166,7 @@ var addHighscore = function(event) {
     // create object with player data
     var scoreEntry = {
         Name: playerNameEl.value,
-        Score: score,
+        Score: timer,
     }
     // add object to array
     console.log(scoreEntry);
@@ -189,13 +190,7 @@ var playAgain = function () {
 }
 
 
-// if timer runs out, show times up page
-if (timer === 0) {
-    // main.innerhtml = endcard    i dont understand why this isnt triggering.  leaving it for now. 
-    document.getElementById('main').innerHTML = endCardEl;
-    endCardEl.setAttribute('style', 'display:block')
-    clearInterval(timerID);
-}
+
 
 document.querySelector('.view-scores-link').addEventListener('click', function(event){
     event.preventDefault();
