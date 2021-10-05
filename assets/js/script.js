@@ -9,7 +9,7 @@ var question4El = document.querySelector('#question-4')
 var endCardEl = document.querySelector('#end-card')
 var highscoresCardEl = document.querySelector('#highscores-card')
 var playerNameEl = document.querySelector('#player-name')
-var score = ''
+var score = 0
 var timer = ''
 var highscoreList = []
 
@@ -22,13 +22,14 @@ var wrongAnswer = function() {
     // .appendChild(attachWrong)
 
     // decrease timer by ten seconds
-    timer = timer - 10
+    return timer -= 10
 }
+
 var rightAnswer = function() {
     // attach the word correct to the next card at the bottom
 
     // increase score by 1
-    
+    return score += 1
 }
 
 // Timer Functions
@@ -167,6 +168,7 @@ var addHighscore = function(event) {
     // add object to array
     console.log(scoreEntry);
     highscoreList.push(scoreEntry);
+    score = 0
     document.getElementById('enter-score-container').reset();
     console.log(highscoreList)
     // add score to local storage
@@ -178,7 +180,7 @@ var clearHighscores = function() {
 }
 
 var playAgain = function () {
-    score = 0;
+    // score = 0;
 
     highscoresCardEl.setAttribute('style', 'display:none');
     startGame();
