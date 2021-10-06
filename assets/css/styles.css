@@ -35,8 +35,8 @@ header {
     font-size: 34px;
 }
 
-.view-scores-link {
-    color: var(--tertiary-color);
+#view-scores-link {
+    color: var(--primary-color);
 }
 
 .heading-text {

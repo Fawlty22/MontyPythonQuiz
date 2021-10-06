@@ -31,8 +31,8 @@ var timerRun = function () {
     timerEl.textContent = 'Time Remaining: ' + timer + 's'; 
 
     // if timer runs out, show times up page
-if (timer === 0) {
-    // main.innerhtml = endcard    i dont understand why this isnt triggering.  leaving it for now. 
+if (timer < 0) {
+    // if timer < 0, hide all cards and show end card   
     endCardEl.setAttribute('style', 'display:block')
     question1El.setAttribute('style', 'display:none');
     question2El.setAttribute('style', 'display:none');
@@ -58,6 +58,104 @@ var startGame = function() {
 
 };
 
+
+
+
+
+var toQuestion2 = function() {
+    question1El.setAttribute('style', 'display:none');
+    question2El.setAttribute('style', 'display:block');
+
+}
+
+
+var toQuestion3 = function() {
+    question2El.setAttribute('style', 'display:none');
+    question3El.setAttribute('style', 'display:block');
+
+}
+
+
+var toQuestion4 = function() {
+    question3El.setAttribute('style', 'display:none');
+    question4El.setAttribute('style', 'display:block');
+
+}
+
+
+var toEndCard = function() {
+    question4El.setAttribute('style', 'display:none');
+    endCardEl.setAttribute('style', 'display:block');
+
+    clearInterval(timerID);
+
+}
+
+var toHighscores = function() {
+    endCardEl.setAttribute('style', 'display:none');
+    highscoresCardEl.setAttribute('style', 'display:block');
+}
+
+var playAgain = function () {
+    highscoresCardEl.setAttribute('style', 'display:none');
+    startGame();
+}
+
+var pushHighscore = function(event) {
+    event.preventDefault();
+    // create object with player data
+    var scoreEntry = {
+        Name: playerNameEl.value,
+        Score: timer,
+    }
+    // add object to array
+    console.log(scoreEntry);
+    highscoreList.push(scoreEntry);
+    score = 0
+    document.getElementById('enter-score-container').reset();
+    console.log(highscoreList)
+}
+
+var saveHighscore = function() {
+localStorage.setItem('highscores', JSON.stringify(highscoreList));
+}
+
+var loadHighscore = function() {
+    // for (i = 0; i < highscoreList.length; i++) {
+    // var scoreDisplayEl = document.querySelector('#highscore-display')
+    // var addScore = document.createElement("p")
+    // addScore.textContent = highscoreList
+    // scoreDisplayEl.appendChild(addScore)
+    // }
+    var scoreDisplayEl = document.querySelector('#highscore-display');
+    highscoreList = localStorage.getItem('highscores');
+
+    scoreDisplayEl.innerHTML = "<p>" + highscoreList + "</p>";
+}
+
+
+                            // event listeners
+
+//submit score button
+document.getElementById('submit-score-btn').addEventListener('click', (event) => {
+    toHighscores();
+    pushHighscore(event);
+    saveHighscore();
+    loadHighscore();
+});
+//clear highscores button
+document.querySelector('#clear-scores-btn').addEventListener('click', localStorage.clear());
+//view scores link
+document.querySelector('#view-scores-link').addEventListener('click', function(event){
+    event.preventDefault();
+    highscoresCardEl.setAttribute('style', 'display:block');
+    
+});
+//play again btn
+document.getElementById('play-again-btn').addEventListener('click', playAgain)
+startButtonEl.addEventListener('click', startGame);
+
+//question answers
 document.getElementById('btn-1a').addEventListener('click', () => {
     toQuestion2();
     wrongAnswer();
@@ -73,15 +171,6 @@ document.getElementById('btn-1d').addEventListener('click', () => {
     toQuestion2();
     wrongAnswer();
 });
-
-
-
-var toQuestion2 = function() {
-    question1El.setAttribute('style', 'display:none');
-    question2El.setAttribute('style', 'display:block');
-
-}
-
 document.getElementById('btn-2a').addEventListener('click', () => {
     toQuestion3();
     wrongAnswer();
@@ -97,13 +186,6 @@ document.getElementById('btn-2c').addEventListener('click', () => {
 document.getElementById('btn-2d').addEventListener('click', () => {
     toQuestion3();
 });
-
-var toQuestion3 = function() {
-    question2El.setAttribute('style', 'display:none');
-    question3El.setAttribute('style', 'display:block');
-
-}
-
 document.getElementById('btn-3a').addEventListener('click', () => {
     toQuestion4();
     wrongAnswer();
@@ -119,13 +201,6 @@ document.getElementById('btn-3c').addEventListener('click', () => {
 document.getElementById('btn-3d').addEventListener('click', () => {
     toQuestion4();
 });
-
-var toQuestion4 = function() {
-    question3El.setAttribute('style', 'display:none');
-    question4El.setAttribute('style', 'display:block');
-
-}
-
 document.getElementById('btn-4a').addEventListener('click', () => {
     toEndCard();
     wrongAnswer();
@@ -141,62 +216,4 @@ document.getElementById('btn-4d').addEventListener('click', () => {
     toEndCard();
     wrongAnswer();
 });
-
-var toEndCard = function() {
-    question4El.setAttribute('style', 'display:none');
-    endCardEl.setAttribute('style', 'display:block');
-
-    clearInterval(timerID);
-}
-
-document.getElementById('submit-score-btn').addEventListener('click', (event) => {
-    toHighscores();
-    addHighscore(event);
-});
-
-var toHighscores = function() {
-    endCardEl.setAttribute('style', 'display:none');
-    highscoresCardEl.setAttribute('style', 'display:block');
-
-    document.getElementById('play-again-btn').addEventListener('click', playAgain)
-}
-
-var addHighscore = function(event) {
-    event.preventDefault();
-    // create object with player data
-    var scoreEntry = {
-        Name: playerNameEl.value,
-        Score: timer,
-    }
-    // add object to array
-    console.log(scoreEntry);
-    highscoreList.push(scoreEntry);
-    score = 0
-    document.getElementById('enter-score-container').reset();
-    console.log(highscoreList)
-    // add score to local storage
-
-}
-
-var clearHighscores = function() {
-    // clear local storage data
-}
-
-var playAgain = function () {
-    // score = 0;
-
-    highscoresCardEl.setAttribute('style', 'display:none');
-    startGame();
-}
-
-
-
-
-document.querySelector('.view-scores-link').addEventListener('click', function(event){
-    event.preventDefault();
-    highscoresCardEl.setAttribute('style', 'display:block');
-    document.getElementById('play-again-btn').addEventListener('click', playAgain)
-})
-startButtonEl.addEventListener('click', startGame);
-
 
