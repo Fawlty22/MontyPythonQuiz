@@ -121,17 +121,18 @@ localStorage.setItem('highscores', JSON.stringify(highscoreList));
 }
 
 var loadHighscore = function() {
-    // for (i = 0; i < highscoreList.length; i++) {
-    // var scoreDisplayEl = document.querySelector('#highscore-display')
-    // var addScore = document.createElement("p")
-    // addScore.textContent = highscoreList
-    // scoreDisplayEl.appendChild(addScore)
+    var scoreDisplayEl = document.querySelector('#highscore-display')
+
+    scoreDisplayEl.textContent = JSON.parse(localStorage.getItem('highscores'))
+    // var loadedList = JSON.parse(localStorage.getItem('highscores'))
+
+    // for (i = 0; i < loadedList.length; i++) {
+    //     var scoreDisplayEl = document.querySelector('#highscore-display')
+    //     var addScore = document.createElement("p")
+    //     addScore.textContent = loadedList[i]
+    //     scoreDisplayEl.appendChild(addScore)
     // }
 
-    var scoreDisplayEl = document.querySelector('#highscore-display');
-    highscoreList = localStorage.getItem('highscores');
-
-    scoreDisplayEl.innerHTML = "<p>" + highscoreList + "</p>";
 }
 
 
@@ -142,22 +143,25 @@ document.getElementById('submit-score-btn').addEventListener('click', (event) =>
     toHighscores();
     pushHighscore(event);
     saveHighscore();
-    // loadHighscore();
+    loadHighscore();
 });
+
 //clear highscores button
 document.querySelector('#clear-scores-btn').addEventListener('click', () => {
     localStorage.removeItem('highscores');
     highscoreList = []
-    });
+});
     
 //view scores link
 document.querySelector('#view-scores-link').addEventListener('click', function(event){
     event.preventDefault();
     highscoresCardEl.setAttribute('style', 'display:block');
-    
 });
+
 //play again btn
 document.getElementById('play-again-btn').addEventListener('click', playAgain)
+
+//start game btn
 startButtonEl.addEventListener('click', startGame);
 
 //question answers
