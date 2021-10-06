@@ -127,6 +127,7 @@ var loadHighscore = function() {
     // addScore.textContent = highscoreList
     // scoreDisplayEl.appendChild(addScore)
     // }
+
     var scoreDisplayEl = document.querySelector('#highscore-display');
     highscoreList = localStorage.getItem('highscores');
 
@@ -141,10 +142,14 @@ document.getElementById('submit-score-btn').addEventListener('click', (event) =>
     toHighscores();
     pushHighscore(event);
     saveHighscore();
-    loadHighscore();
+    // loadHighscore();
 });
 //clear highscores button
-document.querySelector('#clear-scores-btn').addEventListener('click', localStorage.clear());
+document.querySelector('#clear-scores-btn').addEventListener('click', () => {
+    localStorage.removeItem('highscores');
+    highscoreList = []
+    });
+    
 //view scores link
 document.querySelector('#view-scores-link').addEventListener('click', function(event){
     event.preventDefault();
