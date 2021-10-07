@@ -156,6 +156,12 @@ document.querySelector('#clear-scores-btn').addEventListener('click', () => {
 document.querySelector('#view-scores-link').addEventListener('click', function(event){
     event.preventDefault();
     highscoresCardEl.setAttribute('style', 'display:block');
+    question1El.setAttribute('style', 'display:none');
+    question2El.setAttribute('style', 'display:none');
+    question3El.setAttribute('style', 'display:none');
+    question4El.setAttribute('style', 'display:none');
+    endCardEl.setAttribute('style', 'display:none');
+    clearInterval(timerID)
 });
 
 //play again btn
