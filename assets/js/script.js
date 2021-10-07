@@ -121,20 +121,35 @@ localStorage.setItem('highscores', JSON.stringify(highscoreList));
 }
 
 var loadHighscore = function() {
-    var scoreDisplayEl = document.querySelector('#highscore-display')
+    // var scoreDisplayEl = document.querySelector('#highscore-display')
+    // scoreDisplayEl.textContent = localStorage.getItem('highscores')
+    highscoreList = localStorage.getItem('highscores');
+    highscoreList.forEach(Element => attachScore)
 
-    scoreDisplayEl.textContent = JSON.parse(localStorage.getItem('highscores'))
-    // var loadedList = JSON.parse(localStorage.getItem('highscores'))
-
-    // for (i = 0; i < loadedList.length; i++) {
+    // for (i = 0; i < highscoreList.length; i++) {
     //     var scoreDisplayEl = document.querySelector('#highscore-display')
-    //     var addScore = document.createElement("p")
-    //     addScore.textContent = loadedList[i]
-    //     scoreDisplayEl.appendChild(addScore)
+
+    //     var addScoreDivEl = document.createElement("div")
+    //     var addScoreEl1 = document.createElement("p")
+    //     // var addScoreEl2 = document.createElement("p")
+
+    //     addScoreEl1.textContent = highscoreList
+    //     addScoreDivEl.appendChild(addScoreEl1)
+    //     scoreDisplayEl.appendChild(addScoreDivEl)
     // }
 
 }
 
+var attachScore = function() {
+    var scoreDisplayEl = document.querySelector('#highscore-display')
+
+    var addScoreDivEl = document.createElement("div")
+    var addScoreEl = document.createElement("p")
+
+    addScoreEl.textContent = highscoreList
+    addScoreDivEl.appendChild(addScoreEl)
+    scoreDisplayEl.appendChild(addScoreDivEl)
+}
 
                             // event listeners
 
@@ -161,6 +176,8 @@ document.querySelector('#view-scores-link').addEventListener('click', function(e
     question3El.setAttribute('style', 'display:none');
     question4El.setAttribute('style', 'display:none');
     endCardEl.setAttribute('style', 'display:none');
+    startCardEl.setAttribute('style', 'display:none');
+
     clearInterval(timerID)
 });
 
