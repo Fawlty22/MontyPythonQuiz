@@ -14,13 +14,6 @@ var highscoreList = []
 
 
 var wrongAnswer = function() {
-    // attach the word wrong to the next card at the bottom
-    // var attachWrong = document.createElement('p')
-    // attachWrong.textContent = "Wrong!"
-    // attachWrong.className = 'txt-wrong'
-    // .appendChild(attachWrong)
-
-    // decrease timer by ten seconds
     return timer -= 10
 }
 
@@ -47,8 +40,6 @@ var startTimer = function() {
     timerID = setInterval(timerRun, 1000)
 }
 
-
-
 var startGame = function() {
     timer = 35
     startTimer();
@@ -58,16 +49,11 @@ var startGame = function() {
 
 };
 
-
-
-
-
 var toQuestion2 = function() {
     question1El.setAttribute('style', 'display:none');
     question2El.setAttribute('style', 'display:block');
 
 }
-
 
 var toQuestion3 = function() {
     question2El.setAttribute('style', 'display:none');
@@ -75,20 +61,17 @@ var toQuestion3 = function() {
 
 }
 
-
 var toQuestion4 = function() {
     question3El.setAttribute('style', 'display:none');
     question4El.setAttribute('style', 'display:block');
 
 }
 
-
 var toEndCard = function() {
     question4El.setAttribute('style', 'display:none');
     endCardEl.setAttribute('style', 'display:block');
 
     clearInterval(timerID);
-
 }
 
 var toHighscores = function() {
@@ -132,23 +115,7 @@ var loadHighscore = function() {
         var addListItem = $("<li>").text(highscoreList[i]);
         $(scoreDisplayEl).append(addListItem)
     }
-    
-
-
-
-    // scoreDisplayEl.textContent = JSON.parse(localStorage.getItem('highscores'))
-    
-    // var loadedList = JSON.parse(localStorage.getItem('highscores'))
-
-    // for (i = 0; i < loadedList.length; i++) {
-    //     var scoreDisplayEl = document.querySelector('#highscore-display')
-    //     var addScore = document.createElement("p")
-    //     addScore.textContent = loadedList[i]
-    //     scoreDisplayEl.appendChild(addScore)
-    // }
-
 }
-
 
                             // event listeners
 
