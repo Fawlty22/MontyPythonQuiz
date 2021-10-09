@@ -84,6 +84,12 @@ var playAgain = function () {
     highscoresCardEl.setAttribute('style', 'display:none');
     startGame();
 }
+var validateHighscores = function() {
+    highscoreList = JSON.parse(localStorage.getItem('highscores'))
+    if (!highscoreList) {
+        return false;
+      }
+}
 
 var pushHighscore = function(event) {
     event.preventDefault();
@@ -94,7 +100,9 @@ var pushHighscore = function(event) {
         
     }
     // add object to array
-    // highscoreList = JSON.parse(localStorage.getItem('highscores'))
+    if (highscoreList ===null) {
+        highscoreList = []
+    }
     highscoreList.push([scoreEntry.Score, scoreEntry.Name])
     
     score = 0
@@ -113,6 +121,9 @@ var loadHighscore = function() {
     $(scoreDisplayEl).empty();
 
     var loadedHighscoreList = JSON.parse(localStorage.getItem('highscores'));
+    if (!loadedHighscoreList) {
+        return false;
+      }
 
     for (let i = 0; i<loadedHighscoreList.length; i++){
         var addListItem = $("<li class='li-score'>").text(loadedHighscoreList[i]);
@@ -125,6 +136,7 @@ var loadHighscore = function() {
 //submit score button
 document.getElementById('submit-score-btn').addEventListener('click', (event) => {
     toHighscores();
+    validateHighscores();
     pushHighscore(event);
     saveHighscore();
     loadHighscore();
@@ -134,6 +146,7 @@ document.getElementById('submit-score-btn').addEventListener('click', (event) =>
 document.querySelector('#clear-scores-btn').addEventListener('click', () => {
     localStorage.removeItem('highscores');
     highscoreList = []
+    loadHighscore();
 });
     
 //view scores link
@@ -219,4 +232,3 @@ document.getElementById('btn-4d').addEventListener('click', () => {
     toEndCard();
     wrongAnswer();
 });
-
