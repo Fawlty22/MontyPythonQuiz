@@ -110,10 +110,14 @@ var pushHighscore = function(event) {
     }
     // add object to array
     console.log(scoreEntry);
-    highscoreList.push(scoreEntry);
+    //highscoreList.push(scoreEntry);
+    highscoreList.push([scoreEntry.Name, scoreEntry.Score])
+    
     score = 0
     document.getElementById('enter-score-container').reset();
-    console.log(highscoreList)
+    console.log('highscore list',highscoreList)
+    highscoreList.sort((a,b) => b[0] - a[0]);
+    console.log('highscore list on sort',highscoreList)
 }
 
 var saveHighscore = function() {
@@ -121,9 +125,19 @@ localStorage.setItem('highscores', JSON.stringify(highscoreList));
 }
 
 var loadHighscore = function() {
-    var scoreDisplayEl = document.querySelector('#highscore-display')
+    var scoreDisplayEl = document.querySelector('#highscore-display');
+    $(scoreDisplayEl).empty();
 
-    scoreDisplayEl.textContent = JSON.parse(localStorage.getItem('highscores'))
+    for (let i = 0; i<highscoreList.length; i++){
+        var addListItem = $("<li>").text(highscoreList[i]);
+        $(scoreDisplayEl).append(addListItem)
+    }
+    
+
+
+
+    // scoreDisplayEl.textContent = JSON.parse(localStorage.getItem('highscores'))
+    
     // var loadedList = JSON.parse(localStorage.getItem('highscores'))
 
     // for (i = 0; i < loadedList.length; i++) {
@@ -161,6 +175,8 @@ document.querySelector('#view-scores-link').addEventListener('click', function(e
     question3El.setAttribute('style', 'display:none');
     question4El.setAttribute('style', 'display:none');
     endCardEl.setAttribute('style', 'display:none');
+    startCardEl.setAttribute('style', 'display:none');
+
     clearInterval(timerID)
 });
 

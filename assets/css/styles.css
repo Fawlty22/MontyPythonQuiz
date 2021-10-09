@@ -95,3 +95,15 @@ header {
     background-color: var(--tertiary-color);
 }
 
+#highscore-display {
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    width: 75%;
+}
+
+#highscore-display-container {
+    background-color: var(--tertiary-color);
+    display: flex;
+    justify-content: center;
+}
+
