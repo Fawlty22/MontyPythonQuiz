@@ -84,9 +84,7 @@ header {
 }
 
 #highscores-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: none;
 }
 
 #enter-score-container {

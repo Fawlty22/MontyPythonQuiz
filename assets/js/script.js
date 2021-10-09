@@ -77,6 +77,7 @@ var toEndCard = function() {
 var toHighscores = function() {
     endCardEl.setAttribute('style', 'display:none');
     highscoresCardEl.setAttribute('style', 'display:block');
+    loadHighscore();
 }
 
 var playAgain = function () {
@@ -93,8 +94,7 @@ var pushHighscore = function(event) {
         
     }
     // add object to array
-    console.log(scoreEntry);
-    //highscoreList.push(scoreEntry);
+    // highscoreList = JSON.parse(localStorage.getItem('highscores'))
     highscoreList.push([scoreEntry.Score, scoreEntry.Name])
     
     score = 0
@@ -112,8 +112,10 @@ var loadHighscore = function() {
     var scoreDisplayEl = document.querySelector('#highscore-display');
     $(scoreDisplayEl).empty();
 
-    for (let i = 0; i<highscoreList.length; i++){
-        var addListItem = $("<li class='li-score'>").text(highscoreList[i]);
+    var loadedHighscoreList = JSON.parse(localStorage.getItem('highscores'));
+
+    for (let i = 0; i<loadedHighscoreList.length; i++){
+        var addListItem = $("<li class='li-score'>").text(loadedHighscoreList[i]);
         $(scoreDisplayEl).append(addListItem)
     }
 }
@@ -146,6 +148,8 @@ document.querySelector('#view-scores-link').addEventListener('click', function(e
     startCardEl.setAttribute('style', 'display:none');
 
     clearInterval(timerID)
+
+    loadHighscore();
 });
 
 //play again btn
