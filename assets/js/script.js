@@ -88,13 +88,14 @@ var pushHighscore = function(event) {
     event.preventDefault();
     // create object with player data
     var scoreEntry = {
-        Name: playerNameEl.value,
         Score: timer,
+        Name: playerNameEl.value,
+        
     }
     // add object to array
     console.log(scoreEntry);
     //highscoreList.push(scoreEntry);
-    highscoreList.push([scoreEntry.Name, scoreEntry.Score])
+    highscoreList.push([scoreEntry.Score, scoreEntry.Name])
     
     score = 0
     document.getElementById('enter-score-container').reset();
@@ -112,7 +113,7 @@ var loadHighscore = function() {
     $(scoreDisplayEl).empty();
 
     for (let i = 0; i<highscoreList.length; i++){
-        var addListItem = $("<li>").text(highscoreList[i]);
+        var addListItem = $("<li class='li-score'>").text(highscoreList[i]);
         $(scoreDisplayEl).append(addListItem)
     }
 }
